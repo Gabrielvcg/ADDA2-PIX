@@ -1,0 +1,29 @@
+head section
+
+Integer getNumHuertos()
+Integer getNumVerduras()
+Integer getMetrosHuerto(Integer i)
+Integer getMetrosVerdura(Integer i)
+Integer getIncompatibilidad(Integer i, Integer k)
+
+Integer n = getNumVerduras()
+Integer m = getNumHuertos()
+
+
+goal section
+
+max sum(x[i,j], i in 0 .. n, j in 0 .. m)
+
+constraints section
+
+sum(x[i,j], j in 0 .. m) <= 1, i in 0 .. n // Cada variedad de verdura se planta en un solo huerto (o en ninguno)
+sum(getMetrosVerdura(i) x[i,j], i in 0 .. n) <= getMetrosHuerto(j), j in 0 .. m // La cantidad total de espacio utilizado en cada huerto no puede exceder la disponibilidad
+//sum(getIncompatibilidad(i, k)  x[i,j]  x[k,j], i in 0 .. n, k in 0 .. n, j in 0 .. m) = 0
+
+bounds section
+
+x[i,j] <= 1, i in 0 .. n, j in 0 .. m
+
+bin
+x[i,j], i in 0 .. n, j in 0 .. m
+x[k,j], k in 0 .. n, j in 0 .. m
