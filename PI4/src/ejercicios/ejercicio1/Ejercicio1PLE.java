@@ -112,7 +112,7 @@ public class Ejercicio1PLE {
 		verduras=getVerduras();
 		System.out.println("tamaño de verduras: "+getNumVerduras());
 		//si cambia el fichero de datos de entrada, cambiar tambien el nº del .lp para no sobreescribirlo
-//		AuxGrammar.generate(Ejemplo1PLE.class,"lsi_models/Ejemplo1.lsi","gurobi_modelps/Ejemplo1-1.lp");
+//		AuxGrammar.generate(Ejercicio1PLE.class,"lsi_models/Ejercicio1.lsi","gurobi_modelps/Ejercicio1-2.lp");
 		AuxGrammar.generate(Ejercicio1PLE.class,"modelos/ejercicio1.lsi","gurobi_modelos/Ejercicio1-2.lp");
 		GurobiSolution solution = GurobiLp.gurobi("gurobi_modelos/Ejercicio1-2.lp");
 		Locale.setDefault(Locale.of("en", "US"));
