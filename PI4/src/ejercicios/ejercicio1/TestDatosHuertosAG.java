@@ -12,7 +12,7 @@ public class TestDatosHuertosAG {
 		
 		AlgoritmoAG.ELITISM_RATE  = 0.30;
 		AlgoritmoAG.CROSSOVER_RATE = 0.8;
-		AlgoritmoAG.MUTATION_RATE = 0.7;
+		AlgoritmoAG.MUTATION_RATE = 0.;
 		AlgoritmoAG.POPULATION_SIZE = 50;
 		
 		StoppingConditionFactory.NUM_GENERATIONS = 500000;
@@ -21,7 +21,7 @@ public class TestDatosHuertosAG {
 		StoppingConditionFactory.stoppingConditionType = 
 				StoppingConditionFactory.StoppingConditionType.SolutionsNumber;
 	
-		DatosHuertosAG p = new DatosHuertosAG("ficheros/Ejercicio1DatosEntrada1.txt");
+		DatosHuertosAG p = new DatosHuertosAG("ficheros/Ejercicio1DatosEntrada2.txt");
 		
 		AlgoritmoAG<List<Integer>,SolucionHuerto> ap = AlgoritmoAG.of(p);
 		ap.ejecuta();
