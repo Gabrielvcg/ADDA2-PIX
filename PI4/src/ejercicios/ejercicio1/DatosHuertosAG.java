@@ -18,7 +18,7 @@ public class DatosHuertosAG implements ValuesInRangeData<Integer, SolucionHuerto
 	@Override
 	public Integer size() {
 		// TODO Auto-generated method stub
-		return DatosHuertos.getNumVerduras()-1;
+		return DatosHuertos.getNumVerduras();
 	}
 
 	@Override
