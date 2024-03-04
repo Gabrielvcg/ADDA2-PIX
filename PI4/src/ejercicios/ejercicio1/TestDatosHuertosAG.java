@@ -10,12 +10,13 @@ public class TestDatosHuertosAG {
 	public static void main(String[] args) {
 		Locale.setDefault(Locale.of("en", "US"));
 		
-		AlgoritmoAG.ELITISM_RATE  = 0.30;
-		AlgoritmoAG.CROSSOVER_RATE = 0.8;
-		AlgoritmoAG.MUTATION_RATE = 0.7;
+		AlgoritmoAG.ELITISM_RATE  = 0.10;
+		AlgoritmoAG.CROSSOVER_RATE = 0.95;
+		AlgoritmoAG.MUTATION_RATE = 0.8;
 		AlgoritmoAG.POPULATION_SIZE = 50;
 		
-		StoppingConditionFactory.NUM_GENERATIONS = 500000;
+		
+		StoppingConditionFactory.NUM_GENERATIONS = 1000;
 		StoppingConditionFactory.SOLUTIONS_NUMBER_MIN = 1;
 		StoppingConditionFactory.FITNESS_MIN = 623;
 		StoppingConditionFactory.stoppingConditionType = 

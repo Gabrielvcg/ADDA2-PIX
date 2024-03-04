@@ -5,6 +5,7 @@ package ejercicios.ejercicio1;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import us.lsi.ag.ValuesInRangeData;
 import us.lsi.ag.agchromosomes.ChromosomeFactory.ChromosomeType;
@@ -13,10 +14,17 @@ import us.lsi.common.Pair;
 public class DatosHuertosAG implements ValuesInRangeData<Integer, SolucionHuerto> {
 
 	public static List<Integer> filtrarPorValor(List<Integer> lista, int i, int huerto) {
-        List<Integer> copia = new ArrayList<>(lista); // Hacer una copia de la lista original
-        copia.remove(i); // Eliminar el elemento en la posición i
-        copia.removeIf(e -> e != huerto); // Filtrar los elementos que no sean igual a "huerto"
-        return copia;
+        List<Integer> indices = new ArrayList<>();
+        for (int j = 0; j < lista.size(); j++) {
+            if (lista.get(j) == huerto) {
+                indices.add(j);
+            }
+        }
+        List<Integer> indicesActualizados = indices.stream()
+                .filter(x -> !x.equals(i))
+                .collect(Collectors.toList());        
+        return indicesActualizados;
+
     }
 
 	    public static boolean verificarIncompatibles(List<Integer> mismoHuerto, List<Integer> incompatibles) {
@@ -58,7 +66,7 @@ public class DatosHuertosAG implements ValuesInRangeData<Integer, SolucionHuerto
 			Integer metrosH=huertos.get(huerto);
 			Integer metrosV=verduras.get(verdura).first();
 			List<Integer> mismoHuerto=new ArrayList<>();
-			mismoHuerto=filtrarPorValor(ls,i,huerto);
+			mismoHuerto=filtrarPorValor(ls,verdura,huerto);
 			List<Integer>incompatibles=verduras.get(i).second();
 			if(!(metrosH >= 0 && metrosH-metrosV>=0) ||  !mismoHuerto.stream().noneMatch(incompatibles::contains)) {
 				error+=1;
