@@ -12,7 +12,7 @@ public class TestDatosHuertosAG {
 		
 		AlgoritmoAG.ELITISM_RATE  = 0.30;
 		AlgoritmoAG.CROSSOVER_RATE = 0.8;
-		AlgoritmoAG.MUTATION_RATE = 0.;
+		AlgoritmoAG.MUTATION_RATE = 0.7;
 		AlgoritmoAG.POPULATION_SIZE = 50;
 		
 		StoppingConditionFactory.NUM_GENERATIONS = 500000;

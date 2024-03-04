@@ -58,18 +58,16 @@ public class DatosHuertosAG implements ValuesInRangeData<Integer, SolucionHuerto
 			Integer metrosH=huertos.get(huerto);
 			Integer metrosV=verduras.get(verdura).first();
 			List<Integer> mismoHuerto=new ArrayList<>();
-			
-			if(metrosH >= 0 && metrosH-metrosV>=0) {
-				goal+=1;
-				huertos.put(huerto, metrosH-metrosV);
-			}else {
-				error+=Math.abs(metrosH-metrosV);
-			}
 			mismoHuerto=filtrarPorValor(ls,i,huerto);
 			List<Integer>incompatibles=verduras.get(i).second();
-			if( !mismoHuerto.stream().noneMatch(incompatibles::contains)) {
+			if(!(metrosH >= 0 && metrosH-metrosV>=0) ||  !mismoHuerto.stream().noneMatch(incompatibles::contains)) {
 				error+=1;
+				//Math.abs(metrosH-metrosV);
+			}else {
+				goal+=1;
+				huertos.put(huerto, metrosH-metrosV);
 			}
+			
 			}
 		return goal -10000*error;
 	}
