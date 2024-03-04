@@ -10,7 +10,7 @@ import us.lsi.common.Trio;
 
 public class DatosCesta {
 	
-	public static Integer presupuesto;
+	public static Integer presupuesto=null;
 	public static Pair<Integer, HashMap<Integer, Trio<Integer, Integer, Integer>>> cestaPres=Pair.of(null, null);
 	public static HashMap<Integer,Trio<Integer,Integer,Integer>> cesta = new HashMap<>();
 	public static Trio<Integer, Integer, Integer> propiedades = Trio.of(null, null, null);
@@ -39,17 +39,14 @@ public class DatosCesta {
 	
 	public static void iniDatos(String fichero) {
 	        List<String> lineas = Files2.linesFromFile(fichero);
-	        String tipo = ""; // Variable para identificar si la línea contiene información de huertos o variedades
 	        for (String linea : lineas) {
 	            if (linea.contains("Presupuesto")) {
-	                tipo="Presupuesto";
+	                presupuesto = Integer.parseInt(linea.split("[=]")[1].trim());
 	            } else if (linea.contains("//Id_prod:Precio:Categoria:Valoracion")) {
-	                tipo = "Propiedades";
+	            	//pasamos la linea
 	            } else {
-	                String[] partes = linea.split("[:=]");
-	                if (tipo.equals("Presupuesto")) {
-		                presupuesto = Integer.parseInt(partes[1].trim());
-	                } else if (tipo.equals("Propiedades")) {
+	                String[] partes = linea.split("[:]");
+	               
 	                    Integer producto = Integer.parseInt(partes[0].trim());
 	                    Integer precio = Integer.parseInt(partes[1].trim());
 	                    Integer categoria = Integer.parseInt(partes[2].trim());
@@ -58,7 +55,6 @@ public class DatosCesta {
 	                    propiedades = Trio.of(precio, categoria, valoracion);
 	                    cesta.put(producto, propiedades);
 	                }
-	            }
 	        }
 	        cestaPres=Pair.of(presupuesto, cesta);
 	        toConsole();
@@ -80,7 +76,7 @@ public class DatosCesta {
 	        }
 	    }
 	    public static void main(String[] args) {
-			iniDatos("ficheros/Ejercicio2DatosEntrada1.txt");
+			iniDatos("ficheros/Ejercicio2DatosEntrada3.txt");
 		}	
 	    
 }
