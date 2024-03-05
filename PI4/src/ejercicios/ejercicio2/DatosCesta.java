@@ -3,6 +3,7 @@ package ejercicios.ejercicio2;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import us.lsi.common.Files2;
 import us.lsi.common.Pair;
@@ -15,23 +16,33 @@ public class DatosCesta {
 	public static HashMap<Integer,Trio<Integer,Integer,Integer>> cesta = new HashMap<>();
 	public static Trio<Integer, Integer, Integer> propiedades = Trio.of(null, null, null);
 	
+	
+	 public static Pair<Integer, HashMap<Integer, Trio<Integer, Integer, Integer>>> getCestaPres() {
+	        return cestaPres;
+	    }
 	 public static HashMap<Integer,Trio<Integer,Integer,Integer>> getCesta() {
 	        return cesta;
 	    }
 	 public static Integer getNumProductos() {
-	        return cesta.size();
+	        return cestaPres.second().size();
 	    }
+	 
+	 public static Integer getNumCategorias() {
+	       	       List<Integer> categorias= cestaPres.second().values().stream().map(x->x.second()).collect(Collectors.toList());
+	       	       return categorias.stream().mapToInt(Integer::intValue).max().orElse(0);
+	    }
+	    
 	 public static Trio<Integer,Integer,Integer> getPropiedadesProducto(Integer p) {
-	        return cesta.get(p);
+	        return cestaPres.second().get(p);
 	    }
 	 public static Integer getPrecioProducto(Integer p) {
-	        return cesta.get(p).first();
+	        return cestaPres.second().get(p).first();
 	    }
 	 public static Integer getCategoriaProducto(Integer p) {
-	        return cesta.get(p).second();
+	        return cestaPres.second().get(p).second();
 	    }
 	 public static Integer getValoracionProducto(Integer p) {
-	        return cesta.get(p).third();
+	        return cestaPres.second().get(p).third();
 	    }
 	 
 	 
@@ -76,7 +87,8 @@ public class DatosCesta {
 	        }
 	    }
 	    public static void main(String[] args) {
-			iniDatos("ficheros/Ejercicio2DatosEntrada3.txt");
+			iniDatos("ficheros/Ejercicio2DatosEntrada1.txt");
+		
 		}	
 	    
 }
