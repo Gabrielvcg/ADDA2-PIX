@@ -5,7 +5,6 @@ Integer getNumProductos()
 Integer getNumCategorias()
 Integer getPrecioProducto(Integer i)
 Integer getValoracionProducto(Integer i)
-Integer getCategoriaProducto(Integer i)
 Integer perteneceCategoria(Integer p, Integer j)
 
 Integer n = getNumProductos()

@@ -20,10 +20,5 @@ sum(x[i,j], j in 0 .. m) <= 1, i in 0 .. n // Cada variedad de verdura se planta
 sum(getMetrosVerdura(i) x[i,j], i in 0 .. n) <= getMetrosHuerto(j), j in 0 .. m // La cantidad total de espacio utilizado en cada huerto no puede exceder la disponibilidad
 getIncompatibilidad(i,k)  x[i,j] + x[k,j] <1, i in 0 .. n, j in 0 .. m, k in 0 .. n
 
-bounds section
-
-x[i,j] <= 1, i in 0 .. n, j in 0 .. m
-
 bin
 x[i,j], i in 0 .. n, j in 0 .. m
-x[k,j], k in 0 .. n, j in 0 .. m
