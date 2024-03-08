@@ -45,8 +45,7 @@ public class DatosCesta {
 	        return cestaPres.second().get(p).third();
 	    }
 	 
-	 
-	
+
 	
 	public static void iniDatos(String fichero) {
 	        List<String> lineas = Files2.linesFromFile(fichero);
@@ -88,6 +87,7 @@ public class DatosCesta {
 	    }
 	    public static void main(String[] args) {
 			iniDatos("ficheros/Ejercicio2DatosEntrada1.txt");
+			
 		
 		}	
 	    
