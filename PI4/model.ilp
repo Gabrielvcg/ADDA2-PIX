@@ -3,9 +3,10 @@
 Minimize
  
 Subject To
- b0: 2 x_0 + x_1 + 3 x_2 + x_3 + x_4 + x_5 + 2 x_6 + 5 x_7 + 4 x_8 + 4 x_9
-   >= 30
+ a2: x_0_2 + x_1_2 = 8
 Bounds
-Binaries
- x_0 x_1 x_2 x_3 x_4 x_5 x_6 x_7 x_8 x_9
+ -infinity <= x_0_2 <= 5
+ -infinity <= x_1_2 <= 1
+Generals
+ x_0_2 x_1_2
 End

@@ -1,6 +1,5 @@
 package ejercicios.ejercicio3;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,8 +34,8 @@ public class DatosDistribucion {
 	        return productos.get(i).first();
 	    }
 
-	    public static Integer getCosteAlmacenamientoProducto(Integer i) {
-	        return productos.get(i).second().get(i);
+	    public static Integer getCosteAlmacenamientoProducto(Integer i, Integer j) {
+	        return DatosDistribucion.productos.get(i).second().get(j);
 	    }
 
 	    public static HashMap<Integer, Integer> stringToMap(String input) {
@@ -80,9 +79,9 @@ public class DatosDistribucion {
 	                    int demanda = Integer.parseInt(partesD[1].substring(0,1).trim());
 	                    destinos.put(clave, demanda);
 	                } else if (tipo.equals("producto")) {
-		                String[] partesP = linea.split("[-=]");
-	                    int unidades = Integer.parseInt(partesP[2].substring(0,1).trim());
-	                    String costeStr= partesP[3].trim();
+		                String[] partesP = linea.split("[-=;]");
+	                    int unidades = Integer.parseInt(partesP[2].trim());
+	                    String costeStr= partesP[4].trim();
 	                    HashMap<Integer,Integer>costeAlmacenado=stringToMap(costeStr);
 	                    productos.put(clave, new Pair<>(unidades, costeAlmacenado));
 	                }
@@ -112,5 +111,11 @@ public class DatosDistribucion {
 	    }
 	    public static void main(String[] args) {
 			iniDatos("ficheros/Ejercicio3DatosEntrada1.txt");
+			System.out.println(getNumDestinos());
+			System.out.println(getNumProductos());
+			System.out.println(getCosteAlmacenamientoProducto(0, 1));
+			System.out.println(getUnidadesProducto(1));
+			System.out.println(getDemandaDestino(0));
+			
 		}	
 }

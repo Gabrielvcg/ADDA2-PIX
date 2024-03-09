@@ -1,0 +1,26 @@
+head section
+
+Integer getNumDestinos()
+Integer getNumProductos()
+
+Integer getDemandaDestino(Integer j)
+Integer getUnidadesProducto(Integer i)
+Integer getCosteAlmacenamientoProducto(Integer i, Integer j)
+
+Integer n = getNumProductos()
+Integer m = getNumDestinos()
+
+goal section
+
+min sum(getCosteAlmacenamientoProducto(i,j) x[i,j], i in 0 .. n, j in 0 .. m)
+
+constraints section
+sum(x[i,j], i in 0 .. n) >= getDemandaDestino(j), j in 0 .. m // La cantidad enviada a cada destino debe superar la demanda mínima
+sum(x[i,j] ,j in 0 .. m) <= getUnidadesProducto(i), i in 0 .. n // La cantidad total enviada de cada tipo de producto no puede exceder la cantidad disponible
+
+bounds section
+
+x[i,j] <= getUnidadesProducto(i), i in 0 .. n, j in 0 .. m
+
+int
+x[i,j], i in 0 .. n, j in 0 .. m
