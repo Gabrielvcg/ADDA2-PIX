@@ -75,8 +75,8 @@ public class DatosDistribucion {
 	                
 	                Integer clave = Integer.parseInt(linea.substring(1,2).trim()); // Extraemos el número y lo convertimos a entero
 	                if (tipo.equals("destino")) {
-		                String[] partesD = linea.split("=");
-	                    int demanda = Integer.parseInt(partesD[1].substring(0,1).trim());
+		                String[] partesD = linea.split("[=;]");
+	                    int demanda = Integer.parseInt(partesD[1].trim());
 	                    destinos.put(clave, demanda);
 	                } else if (tipo.equals("producto")) {
 		                String[] partesP = linea.split("[-=;]");
@@ -110,7 +110,7 @@ public class DatosDistribucion {
 	        }
 	    }
 	    public static void main(String[] args) {
-			iniDatos("ficheros/Ejercicio3DatosEntrada1.txt");
+			iniDatos("ficheros/Ejercicio3DatosEntrada2.txt");
 			System.out.println(getNumDestinos());
 			System.out.println(getNumProductos());
 			System.out.println(getCosteAlmacenamientoProducto(0, 1));

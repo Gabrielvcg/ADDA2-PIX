@@ -1,5 +1,6 @@
 package ejercicios.ejercicio3;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -9,9 +10,9 @@ public class SolucionDistribucion {
 	public static SolucionDistribucion of_Range(List<Integer> ls) {
 		return new SolucionDistribucion(ls);
 	}
-	private HashMap<Integer,Integer> costeAlmacenamientoProducto;
-	private HashMap<Integer,Pair<Integer,Integer>> solucion;
-	private Integer costeTotal;
+	private Integer costeTotal=0;
+	private HashMap<Pair<Integer,Integer>,Integer> solucion;
+
 
 
 	private SolucionDistribucion() {
@@ -20,6 +21,7 @@ public class SolucionDistribucion {
 	
 	
 	private SolucionDistribucion(List<Integer> ls) {
+		System.out.println(ls);
 		solucion = new HashMap<>();
 		Integer m_destinos=DatosDistribucion.getNumDestinos();
         for (int i = 0; i < ls.size(); i++) {
@@ -28,19 +30,18 @@ public class SolucionDistribucion {
                 int producto = i / m_destinos; // Calcular el índice del producto
                 int destino = i % m_destinos; // Calcular el índice del destino
               
-                Pair<Integer, Integer> RepartoADestino = new Pair<>(destino, cantidadAsignada);
-                solucion.put(producto, RepartoADestino);
+                Pair<Integer, Integer> productoDestino = new Pair<>(producto, destino);
+
+                solucion.put(productoDestino, cantidadAsignada);
             }
         }
-        for (HashMap.Entry<Integer, Pair<Integer, Integer>> entry : solucion.entrySet()) {
-            int producto = entry.getKey();
-            Pair<Integer, Integer> repartoADestino = entry.getValue();
-            int destino = repartoADestino.first();
-            int cantidad = repartoADestino.second();
+        for (HashMap.Entry<Pair<Integer,Integer>, Integer> entry : solucion.entrySet()) {
+            int producto = entry.getKey().first();
+            int destino = entry.getKey().second();
+            int cantidad = entry.getValue();
 
-            int costo = DatosDistribucion.getCosteAlmacenamientoProducto(producto, destino);
-            //costeAlmacenamientoProducto.put(producto, costo * cantidad);
-           // costeTotal+=costo * cantidad;
+            int coste = DatosDistribucion.getCosteAlmacenamientoProducto(producto, destino);
+            costeTotal+=coste * cantidad;
             
         }
     }
@@ -49,12 +50,34 @@ public class SolucionDistribucion {
 		return new SolucionDistribucion();
 	}
 
-
 	@Override
 	public String toString() {
-		return "SolucionDistribucion [costeAlmacenamientoProducto=" + costeAlmacenamientoProducto + ", solucion="
-				+ solucion + ", costeTotal=" + costeTotal + "]";
+	    StringBuilder sb = new StringBuilder();
+	    sb.append("Reparto obtenido (cantidad de producto repartido a cada destino):\n");
+
+	    for (int i = 0; i < DatosDistribucion.getNumDestinos(); i++) {
+	        sb.append("Destino ").append(i).append(": [");
+	        List<Integer> asignaciones = new ArrayList<>();
+	        for (int j = 0; j < DatosDistribucion.getNumProductos(); j++) {
+	            Pair<Integer, Integer> productoDestino = new Pair<>(j, i);
+	            Integer cantidadAsignada = solucion.getOrDefault(productoDestino, 0);
+	            asignaciones.add(cantidadAsignada);
+	        }
+	        for (int j = 0; j < asignaciones.size(); j++) {
+	            sb.append(asignaciones.get(j));
+	            if (j < asignaciones.size() - 1) {
+	                sb.append(", ");
+	            }
+	        }
+	        sb.append("]\n");
+	    }
+
+	    sb.append("Coste total de almacenamiento: ").append(costeTotal);
+	    return sb.toString();
 	}
+
+
+
 
 
 	

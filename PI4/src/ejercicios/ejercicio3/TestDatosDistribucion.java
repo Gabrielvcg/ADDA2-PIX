@@ -16,7 +16,7 @@ public class TestDatosDistribucion {
 		AlgoritmoAG.POPULATION_SIZE = 50;
 		
 		
-		StoppingConditionFactory.NUM_GENERATIONS = 10000;
+		StoppingConditionFactory.NUM_GENERATIONS = 1000;
 		StoppingConditionFactory.SOLUTIONS_NUMBER_MIN = 1;
 		StoppingConditionFactory.FITNESS_MIN = 623;
 		StoppingConditionFactory.stoppingConditionType = 

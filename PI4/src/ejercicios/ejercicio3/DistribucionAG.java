@@ -1,8 +1,8 @@
 package ejercicios.ejercicio3;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import ejercicios.ejercicio2.DatosCesta;
 import us.lsi.ag.ValuesInRangeData;
 import us.lsi.ag.agchromosomes.ChromosomeFactory.ChromosomeType;
 
@@ -28,7 +28,7 @@ public class DistribucionAG implements ValuesInRangeData<Integer, SolucionDistri
 	        for (int i = destino; i < ls.size(); i += n_destinos) {
 	            totalProductosAsignados += ls.get(i);
 	        }
-	        return totalProductosAsignados >= demandaMinima;
+	        return totalProductosAsignados == demandaMinima;
 	    }
 	  
 	  public boolean noExcedeUnidadesProducto(int producto, int unidadesDisponibles, List<Integer> ls) {
@@ -39,10 +39,66 @@ public class DistribucionAG implements ValuesInRangeData<Integer, SolucionDistri
 	        }
 	        return totalUnidadesAsignadas <= unidadesDisponibles;
 	    }
+	  public boolean masBarato(int producto, int destino, List<Integer> ls) {
+		    Integer n_destinos = DatosDistribucion.getNumDestinos();
+		    int costoProducto = DatosDistribucion.getCosteAlmacenamientoProducto(producto, destino);
+		    
+		    for (int i = destino; i < ls.size(); i += n_destinos) {
+		        int costoAsignado = DatosDistribucion.getCosteAlmacenamientoProducto(i / n_destinos, destino);
+		        if (costoAsignado < costoProducto) {
+		            return false; // Hay un producto más barato asignado a este destino
+		        }
+		    }
+		    
+		    return true; // El producto es el más barato asignado a este destino
+		}
+
+
+
+	  
+	  public boolean masCaroNoAsignado(int producto, int destino, List<Integer> ls) {
+		    Integer n_destinos = DatosDistribucion.getNumDestinos();
+		    int costoProducto = DatosDistribucion.getCosteAlmacenamientoProducto(producto, destino);
+
+		    // Verificamos si el producto especificado es el más barato en el destino indicado
+		    if (!masBarato(producto, destino, ls)) {
+		        // El producto no es el más barato, ahora verificamos si está asignado o no
+		        int indiceProductoDestino = producto * n_destinos + destino; // Índice del producto en el destino
+		        if (ls.get(indiceProductoDestino) == 0) {
+		            // El producto no está asignado
+		            return true;
+		        }
+		    }
+
+		    // El producto es el más barato o está asignado, por lo tanto, retornamos false
+		    return false;
+		}
+
+		    		
+
+
+
+
+
+
 	  
 	@Override
 	public Double fitnessFunction(List<Integer> ls) {
-	//	System.out.println(ls);
+	//System.out.println(ls);
+			/*List<Integer>ls=new ArrayList<>();
+			
+			ls.add(5);
+			ls.add(0);
+			ls.add(0);
+			ls.add(0);
+			ls.add(0);
+			ls.add(1);
+			ls.add(3);
+			ls.add(8);
+			ls.add(10);
+			ls.add(5);
+			System.out.println(ls);*/
+			
 			double goal = 0, error = 0;
 			Integer m_destinos= DatosDistribucion.getNumDestinos();
 			for(int i=0; i<ls.size(); i++) {
@@ -51,18 +107,27 @@ public class DistribucionAG implements ValuesInRangeData<Integer, SolucionDistri
 	            int destino = i % m_destinos;
 				Integer unidadesDisponibles=DatosDistribucion.getUnidadesProducto(producto);
 				Integer demandaMinima=DatosDistribucion.getDemandaDestino(destino);
+				Integer costeAlmacenarProductoDestino=DatosDistribucion.getCosteAlmacenamientoProducto(producto, destino);
 				Boolean satisfaceDemanda=satisfaceDemandaDestino(destino,demandaMinima,ls);
 				Boolean noExcede=noExcedeUnidadesProducto(producto,unidadesDisponibles,ls);
-				if(!satisfaceDemanda ||  !noExcede){
-					error+=1;
-					//Math.abs(metrosH-metrosV);
-				}else {
-					goal+=1;
-				}
-				
-				}
-			
-			return goal -10000*error;
+				Boolean masBarato=masBarato(producto,destino,ls);
+				Boolean masCaroNoAsignado=masCaroNoAsignado(producto,destino,ls);
+
+				  if (!satisfaceDemanda || !noExcede) {
+			            error += 1;
+			        } else {
+			            goal += 1;
+			            // Ajusta los pesos para que masBarato y masCaroNoAsignado contribuyan menos a la función de aptitud
+			            if (masBarato) {
+			                goal += 0.1; // Peso menor para masBarato
+			            }
+			            if (masCaroNoAsignado) {
+			                goal += 0.1; // Peso menor para masCaroNoAsignado
+			            }
+			        }
+			    }
+			    // Ajusta la escala del error para que tenga un impacto adecuado en la función de aptitud
+			    return goal - 1000 * error;
 	}
 
 
@@ -74,7 +139,7 @@ public class DistribucionAG implements ValuesInRangeData<Integer, SolucionDistri
 	@Override
 	public Integer max(Integer i) {
 		Integer m_destinos = DatosDistribucion.getNumDestinos();
-		return DatosDistribucion.getDemandaDestino(i%m_destinos);
+		return DatosDistribucion.getDemandaDestino(i%m_destinos)+1;
 	}
 
 	@Override
