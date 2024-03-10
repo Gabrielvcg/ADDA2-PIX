@@ -1,7 +1,6 @@
 package ejercicios.ejercicio2;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -11,7 +10,6 @@ public class SolucionCesta {
 	}
 	private Integer costeCesta;
 	private List<Integer> solucion;
-	private HashMap<Integer,List<Integer>> alternaticas;
 
 	private SolucionCesta() {
 		solucion = new ArrayList<>();
