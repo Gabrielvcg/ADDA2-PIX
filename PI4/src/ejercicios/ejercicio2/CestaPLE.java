@@ -41,8 +41,8 @@ public class CestaPLE {
 			System.out.println("Cantidad de productos disponibles: "+ DatosCesta.cestaPres.second().size());
 			//si cambia el fichero de datos de entrada, cambiar tambien el nº del .lp para no sobreescribirlo
 //			AuxGrammar.generate(Ejercicio1PLE.class,"lsi_models/Ejercicio1.lsi","gurobi_modelps/Ejercicio1-2.lp");
-			AuxGrammar.generate(CestaPLE.class,"modelos/ejercicio2.lsi","gurobi_modelos/Ejercicio2-1.lp");
-			GurobiSolution solution = GurobiLp.gurobi("gurobi_modelos/Ejercicio2-1.lp");
+			AuxGrammar.generate(CestaPLE.class,"modelos/ejercicio2.lsi","gurobi_modelos/Ejercicio2-3.lp");
+			GurobiSolution solution = GurobiLp.gurobi("gurobi_modelos/Ejercicio2-3.lp");
 			Locale.setDefault(Locale.of("en", "US"));
 			System.out.println(solution.toString((s,d)->d>0.));
 		}

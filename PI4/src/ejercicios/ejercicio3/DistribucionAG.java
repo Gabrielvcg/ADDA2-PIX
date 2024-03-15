@@ -1,6 +1,5 @@
 package ejercicios.ejercicio3;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import us.lsi.ag.ValuesInRangeData;
@@ -92,33 +91,7 @@ public class DistribucionAG implements ValuesInRangeData<Integer, SolucionDistri
 	@Override
 	public Double fitnessFunction(List<Integer> ls) {
 	//System.out.println(ls);
-		//	List<Integer>ls=new ArrayList<>();
-			/*
-			
-			ls.add(5);
-			ls.add(0);
-			ls.add(0);
-			ls.add(0);
-			ls.add(0);
-			ls.add(1);
-			ls.add(3);
-			ls.add(8);
-			ls.add(10);
-			ls.add(5);
-			System.out.println(ls);
-			
-		//[6, 2, 1, 8, 3, 6, 2, 1, 9, 0]
-		ls.add(6);
-		ls.add(2);
-		ls.add(1);
-		ls.add(8);
-		ls.add(3);
-		ls.add(6);
-		ls.add(2);
-		ls.add(1);
-		ls.add(9);
-		ls.add(0);
-		*/
+	
 			double goal = 0, error = 0;
 			Integer m_destinos= DatosDistribucion.getNumDestinos();
 			for(int i=0; i<ls.size(); i++) {
@@ -127,7 +100,6 @@ public class DistribucionAG implements ValuesInRangeData<Integer, SolucionDistri
 	            int destino = i % m_destinos;
 				Integer unidadesDisponibles=DatosDistribucion.getUnidadesProducto(producto);
 				Integer demandaMinima=DatosDistribucion.getDemandaDestino(destino);
-				Integer costeAlmacenarProductoDestino=DatosDistribucion.getCosteAlmacenamientoProducto(producto, destino);
 				Boolean satisfaceDemanda=satisfaceDemandaDestino(destino,demandaMinima,ls);
 				Boolean noExcede=noExcedeUnidadesProducto(producto,unidadesDisponibles,ls);
 				Boolean masBaratoElegido=masBaratoElegido(producto,destino,ls);
@@ -137,14 +109,13 @@ public class DistribucionAG implements ValuesInRangeData<Integer, SolucionDistri
 			            error += 1;
 			        } else {
 			            goal += 1;
-			            // Ajusta los pesos para que masBarato y masCaroNoAsignado contribuyan menos a la función de aptitu
-			        }if (masBaratoElegido || masCaroNoAsignado ) {
+			        }
+				  if (masBaratoElegido || masCaroNoAsignado ) {
 			        	goal+=1;
 			        }else {
 			        	error+=2;
 			        }
 			    }
-			    // Ajusta la escala del error para que tenga un impacto adecuado en la función de aptitud
 			    return goal - 10000 * error;
 	}
 

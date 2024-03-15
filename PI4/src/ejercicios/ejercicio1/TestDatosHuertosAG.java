@@ -22,7 +22,7 @@ public class TestDatosHuertosAG {
 		StoppingConditionFactory.stoppingConditionType = 
 				StoppingConditionFactory.StoppingConditionType.SolutionsNumber;
 	
-		DatosHuertosAG p = new DatosHuertosAG("ficheros/Ejercicio1DatosEntrada2.txt");
+		DatosHuertosAG p = new DatosHuertosAG("ficheros/Ejercicio1DatosEntrada3.txt");
 		
 		AlgoritmoAG<List<Integer>,SolucionHuerto> ap = AlgoritmoAG.of(p);
 		ap.ejecuta();

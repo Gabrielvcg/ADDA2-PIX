@@ -1,19 +1,14 @@
 package ejercicios.ejercicio1;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import us.lsi.common.Files2;
-import us.lsi.common.Pair;
 import us.lsi.gurobi.GurobiLp;
 import us.lsi.gurobi.GurobiSolution;
 import us.lsi.solve.AuxGrammar;
-import ejercicios.ejercicio1.DatosHuertos;
 
-public class Ejercicio1PLE {
+public class HuertosPLE {
 
 	 public static Integer getNumHuertos() {
 	        return DatosHuertos.huertos.size();
@@ -46,14 +41,14 @@ public class Ejercicio1PLE {
 	    }
 	
     public static void ejercicio1_model() throws IOException {
-    	DatosHuertos.iniDatos("ficheros/Ejercicio1DatosEntrada3.txt");
+    	DatosHuertos.iniDatos("ficheros/Ejercicio1DatosEntrada1.txt");
     	DatosHuertos.huertos=DatosHuertos.getHuertos();
     	DatosHuertos.verduras=DatosHuertos.getVerduras();
 		System.out.println("tamaño de verduras: "+DatosHuertos.getNumVerduras());
 		//si cambia el fichero de datos de entrada, cambiar tambien el nº del .lp para no sobreescribirlo
 //		AuxGrammar.generate(Ejercicio1PLE.class,"lsi_models/Ejercicio1.lsi","gurobi_modelps/Ejercicio1-2.lp");
-		AuxGrammar.generate(Ejercicio1PLE.class,"modelos/ejercicio1.lsi","gurobi_modelos/Ejercicio1-3.lp");
-		GurobiSolution solution = GurobiLp.gurobi("gurobi_modelos/Ejercicio1-3.lp");
+		AuxGrammar.generate(HuertosPLE.class,"modelos/ejercicio1.lsi","gurobi_modelos/Ejercicio1-1.lp");
+		GurobiSolution solution = GurobiLp.gurobi("gurobi_modelos/Ejercicio1-1.lp");
 		Locale.setDefault(Locale.of("en", "US"));
 		System.out.println(solution.toString((s,d)->d>0.));
 	}

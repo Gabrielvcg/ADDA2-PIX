@@ -3,9 +3,6 @@ package ejercicios.ejercicio1;
 import java.util.HashMap;
 import java.util.List;
 
-import ejemplos.DatosMulticonjunto;
-import ejemplos.SolucionMulticonjunto;
-import us.lsi.common.Multiset;
 import us.lsi.common.Pair;
 
 
