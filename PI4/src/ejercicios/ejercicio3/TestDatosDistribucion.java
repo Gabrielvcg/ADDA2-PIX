@@ -10,7 +10,7 @@ public class TestDatosDistribucion {
 	public static void main(String[] args) {
 		Locale.setDefault(Locale.of("en", "US"));
 		
-		AlgoritmoAG.ELITISM_RATE  = 0.35;
+		AlgoritmoAG.ELITISM_RATE  = 0.25;
 		AlgoritmoAG.CROSSOVER_RATE = 0.95;
 		AlgoritmoAG.MUTATION_RATE = 0.8;
 		AlgoritmoAG.POPULATION_SIZE = 50;
@@ -22,7 +22,7 @@ public class TestDatosDistribucion {
 		StoppingConditionFactory.stoppingConditionType = 
 				StoppingConditionFactory.StoppingConditionType.SolutionsNumber;
 	
-		DistribucionAG p = new DistribucionAG("ficheros/Ejercicio3DatosEntrada1.txt");
+		DistribucionAG p = new DistribucionAG("ficheros/Ejercicio3DatosEntrada3.txt");
 		
 		AlgoritmoAG<List<Integer>,SolucionDistribucion> ap = AlgoritmoAG.of(p);
 		ap.ejecuta();

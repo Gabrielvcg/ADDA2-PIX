@@ -52,6 +52,13 @@ public class DistribucionAG implements ValuesInRangeData<Integer, SolucionDistri
 		    
 		    return true; // El producto es el más barato asignado a este destino
 		}
+	  public boolean masBaratoElegido(int producto, int destino, List<Integer> ls) {
+		    Integer n_destinos = DatosDistribucion.getNumDestinos();
+
+	        int indiceProductoDestino = producto * n_destinos + destino; // Índice del producto en el destino
+		    return masBarato(producto,destino,ls) && ls.get(indiceProductoDestino)==DatosDistribucion.getUnidadesProducto(producto); // El producto es el más barato asignado a este destino
+		}
+
 
 
 
@@ -85,7 +92,8 @@ public class DistribucionAG implements ValuesInRangeData<Integer, SolucionDistri
 	@Override
 	public Double fitnessFunction(List<Integer> ls) {
 	//System.out.println(ls);
-			/*List<Integer>ls=new ArrayList<>();
+		//	List<Integer>ls=new ArrayList<>();
+			/*
 			
 			ls.add(5);
 			ls.add(0);
@@ -97,8 +105,20 @@ public class DistribucionAG implements ValuesInRangeData<Integer, SolucionDistri
 			ls.add(8);
 			ls.add(10);
 			ls.add(5);
-			System.out.println(ls);*/
+			System.out.println(ls);
 			
+		//[6, 2, 1, 8, 3, 6, 2, 1, 9, 0]
+		ls.add(6);
+		ls.add(2);
+		ls.add(1);
+		ls.add(8);
+		ls.add(3);
+		ls.add(6);
+		ls.add(2);
+		ls.add(1);
+		ls.add(9);
+		ls.add(0);
+		*/
 			double goal = 0, error = 0;
 			Integer m_destinos= DatosDistribucion.getNumDestinos();
 			for(int i=0; i<ls.size(); i++) {
@@ -110,24 +130,22 @@ public class DistribucionAG implements ValuesInRangeData<Integer, SolucionDistri
 				Integer costeAlmacenarProductoDestino=DatosDistribucion.getCosteAlmacenamientoProducto(producto, destino);
 				Boolean satisfaceDemanda=satisfaceDemandaDestino(destino,demandaMinima,ls);
 				Boolean noExcede=noExcedeUnidadesProducto(producto,unidadesDisponibles,ls);
-				Boolean masBarato=masBarato(producto,destino,ls);
+				Boolean masBaratoElegido=masBaratoElegido(producto,destino,ls);
 				Boolean masCaroNoAsignado=masCaroNoAsignado(producto,destino,ls);
 
-				  if (!satisfaceDemanda || !noExcede) {
+				  if (!satisfaceDemanda || !noExcede ) {
 			            error += 1;
 			        } else {
 			            goal += 1;
-			            // Ajusta los pesos para que masBarato y masCaroNoAsignado contribuyan menos a la función de aptitud
-			            if (masBarato) {
-			                goal += 0.1; // Peso menor para masBarato
-			            }
-			            if (masCaroNoAsignado) {
-			                goal += 0.1; // Peso menor para masCaroNoAsignado
-			            }
+			            // Ajusta los pesos para que masBarato y masCaroNoAsignado contribuyan menos a la función de aptitu
+			        }if (masBaratoElegido || masCaroNoAsignado ) {
+			        	goal+=1;
+			        }else {
+			        	error+=2;
 			        }
 			    }
 			    // Ajusta la escala del error para que tenga un impacto adecuado en la función de aptitud
-			    return goal - 1000 * error;
+			    return goal - 10000 * error;
 	}
 
 
